@@ -557,18 +557,6 @@ class _WhatsAppChatScreenState extends State<WhatsAppChatScreen> with WidgetsBin
       // 2. CHAT CANVAS & FIRESTORE STREAM
       body: Stack(
         children: [
-          // WhatsApp Doodle Background Pattern
-          Positioned.fill(
-            child: Opacity(
-              opacity: 0.05,
-              child: Image.asset(
-                'assets/whatsapp_doodle_bg.png',
-                repeat: ImageRepeat.repeat,
-                errorBuilder: (_, __, ___) => const SizedBox(),
-              ),
-            ),
-          ),
-
           Column(
             children: [
               // End-to-End Encryption Notice banner
@@ -970,8 +958,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-  assets:
-    - assets/whatsapp_doodle_bg.png
 `,
   },
   {
