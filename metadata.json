@@ -1,0 +1,6 @@
+{
+  "name": "Kymo Chat (com.kymo.chat)",
+  "description": "WhatsApp-style real-time chat application with Flutter Android APK build bundle, FCM push notifications trigger, and Firestore integration.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

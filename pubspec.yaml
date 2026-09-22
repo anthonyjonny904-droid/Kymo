@@ -1,0 +1,27 @@
+name: kymo_chat
+description: "Kymo Chat (com.kymo.chat) - WhatsApp style real-time chat with FCM push notifications"
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.24.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  firebase_core: ^3.6.0
+  cloud_firestore: ^5.4.4
+  firebase_messaging: ^15.1.3
+  flutter_local_notifications: ^17.2.3
+  intl: ^0.19.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/whatsapp_doodle_bg.png
