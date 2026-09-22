@@ -9,6 +9,67 @@ export interface SourceFile {
 
 export const KYMO_BUNDLE_FILES: SourceFile[] = [
   {
+    name: 'build-aab.yml',
+    path: '.github/workflows/build-aab.yml',
+    language: 'yaml',
+    category: 'config',
+    description: 'GitHub Actions Automated Workflow to build release Android App Bundle (.aab)',
+    content: `name: Build Android App Bundle (AAB)
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build-aab:
+    name: Build Release AAB (com.kymo.chat)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Java Development Kit (JDK 17)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'gradle'
+
+      - name: Set up Flutter SDK
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.3'
+          channel: 'stable'
+          cache: true
+
+      - name: Verify Flutter Installation
+        run: flutter doctor -v
+
+      - name: Install Flutter Dependencies
+        run: flutter pub get
+
+      - name: Build Android App Bundle (AAB)
+        run: flutter build appbundle --release --no-tree-shake-icons
+
+      - name: Verify AAB output
+        run: |
+          ls -lh build/app/outputs/bundle/release/app-release.aab
+
+      - name: Upload Release AAB Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: kymo-chat-release-aab
+          path: build/app/outputs/bundle/release/app-release.aab
+          retention-days: 30
+`,
+  },
+  {
     name: 'index.js',
     path: 'functions/index.js',
     language: 'javascript',

@@ -22,11 +22,12 @@ import { WhatsAppChat } from './components/WhatsAppChat';
 import { PushInspector } from './components/PushInspector';
 import { CodeBundleViewer } from './components/CodeBundleViewer';
 import { ApkBuildTerminal } from './components/ApkBuildTerminal';
+import { GitHubExportPush } from './components/GitHubExportPush';
 import { Message, UserContact, FcmPushLog } from './types/chat';
 import { sounds } from './utils/soundEffects';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<'chat' | 'fcm' | 'bundle' | 'build'>('chat');
+  const [activeTab, setActiveTab] = useState<'chat' | 'fcm' | 'bundle' | 'build' | 'github'>('github');
   const [isPhoneFrame, setIsPhoneFrame] = useState<boolean>(true);
   const [activeChatPeer, setActiveChatPeer] = useState<UserContact>({
     id: 'user_sarah_connor',
@@ -216,6 +217,17 @@ export default function App() {
             <Terminal className="w-3.5 h-3.5" />
             <span className="hidden md:inline">APK Terminal</span>
           </button>
+          <button
+            onClick={() => setActiveTab('github')}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md font-medium transition ${
+              activeTab === 'github'
+                ? 'bg-purple-600 text-white shadow'
+                : 'text-purple-400 hover:text-purple-200'
+            }`}
+          >
+            <Sparkles className="w-3.5 h-3.5 text-purple-300" />
+            <span>GitHub Push</span>
+          </button>
         </div>
 
         {/* User Identity & View Controls */}
@@ -329,6 +341,9 @@ export default function App() {
 
         {/* TAB 4: APK RELEASE BUILD TERMINAL */}
         {activeTab === 'build' && <ApkBuildTerminal />}
+
+        {/* TAB 5: GITHUB EXPORT & FORCE PUSH */}
+        {activeTab === 'github' && <GitHubExportPush />}
       </main>
     </div>
   );
