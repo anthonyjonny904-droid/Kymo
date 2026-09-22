@@ -9,6 +9,62 @@ export interface SourceFile {
 
 export const KYMO_BUNDLE_FILES: SourceFile[] = [
   {
+    name: 'build-debug-apk.yml',
+    path: '.github/workflows/build-debug-apk.yml',
+    language: 'yaml',
+    category: 'config',
+    description: 'GitHub Actions Automated Workflow to build Debug APK and upload build/app/outputs/flutter-apk/app-release.apk',
+    content: `name: Build Debug APK
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build-debug-apk:
+    name: Build Debug APK (com.kymo.chat)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java Development Kit (JDK 17)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'gradle'
+
+      - name: Set up Flutter SDK
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.3'
+          channel: 'stable'
+          cache: true
+
+      - name: Install Dependencies
+        run: flutter pub get
+
+      - name: Build Debug APK
+        run: |
+          flutter build apk --debug
+          if [ -f build/app/outputs/flutter-apk/app-debug.apk ] && [ ! -f build/app/outputs/flutter-apk/app-release.apk ]; then
+            cp build/app/outputs/flutter-apk/app-debug.apk build/app/outputs/flutter-apk/app-release.apk
+          fi
+
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: kymo-chat-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
+          retention-days: 30
+`,
+  },
+  {
     name: 'build-aab.yml',
     path: '.github/workflows/build-aab.yml',
     language: 'yaml',
