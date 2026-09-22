@@ -998,7 +998,7 @@ if (localPropertiesFile.exists()) {
 android {
     namespace "com.kymo.chat"
     compileSdkVersion 34
-    ndkVersion flutter.ndkVersion
+    ndkVersion = "25.1.8937393"
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
