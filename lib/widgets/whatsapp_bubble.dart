@@ -55,7 +55,7 @@ class WhatsAppMessageBubble extends StatelessWidget {
             ),
             child: Wrap(
               alignment: WrapAlignment.end,
-              crossAxisAlignment: WrapCrossAlignment.bottom,
+              crossAxisAlignment: WrapCrossAlignment.end,
               spacing: 8,
               runSpacing: 4,
               children: [
