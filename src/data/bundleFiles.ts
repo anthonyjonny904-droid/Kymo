@@ -1028,6 +1028,17 @@ dependencies {
 `,
   },
   {
+    name: 'gradle.properties',
+    path: 'android/gradle.properties',
+    language: 'properties',
+    category: 'android',
+    description: 'Gradle properties enabling AndroidX, Jetifier and build JVM heap',
+    content: `org.gradle.jvmargs=-Xmx4G -XX:MaxMetaspaceSize=2G -XX:+HeapDumpOnOutOfMemoryError
+android.useAndroidX=true
+android.enableJetifier=true
+`,
+  },
+  {
     name: 'settings.gradle',
     path: 'android/settings.gradle',
     language: 'groovy',
