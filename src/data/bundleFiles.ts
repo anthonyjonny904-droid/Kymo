@@ -13,7 +13,7 @@ export const KYMO_BUNDLE_FILES: SourceFile[] = [
     path: '.github/workflows/build-debug-apk.yml',
     language: 'yaml',
     category: 'config',
-    description: 'GitHub Actions Automated Workflow to build Debug APK and upload build/app/outputs/flutter-apk/app-release.apk',
+    description: 'GitHub Actions Automated Workflow to build Debug APK and upload build/app/outputs/flutter-apk/app-debug.apk',
     content: `name: Build Debug APK
 
 on:
@@ -50,17 +50,13 @@ jobs:
         run: flutter pub get
 
       - name: Build Debug APK
-        run: |
-          flutter build apk --debug
-          if [ -f build/app/outputs/flutter-apk/app-debug.apk ] && [ ! -f build/app/outputs/flutter-apk/app-release.apk ]; then
-            cp build/app/outputs/flutter-apk/app-debug.apk build/app/outputs/flutter-apk/app-release.apk
-          fi
+        run: flutter build apk --debug
 
-      - name: Upload APK Artifact
+      - name: Upload Debug APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: kymo-chat-apk
-          path: build/app/outputs/flutter-apk/app-release.apk
+          name: kymo-chat-debug-apk
+          path: build/app/outputs/flutter-apk/app-debug.apk
           retention-days: 30
 `,
   },
