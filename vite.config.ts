@@ -38,7 +38,7 @@ function gitApiPlugin(): Plugin {
           try {
             const data = body ? JSON.parse(body) : {};
             const token = (data.token || '').trim();
-            const repo = (data.repo || 'anthonyjonny9/Kymo').trim();
+            const repo = (data.repo || 'anthonyjonny904-droid/Kymo').trim();
 
             execSync('git add -A', { encoding: 'utf-8' });
             try {

@@ -77,7 +77,7 @@ jobs:
 `;
 
 export const GitHubExportPush: React.FC = () => {
-  const [repoName, setRepoName] = useState<string>('anthonyjonny9/Kymo');
+  const [repoName, setRepoName] = useState<string>('anthonyjonny904-droid/Kymo');
   const [githubToken, setGithubToken] = useState<string>('');
   const [isPushing, setIsPushing] = useState<boolean>(false);
   const [pushStatus, setPushStatus] = useState<{

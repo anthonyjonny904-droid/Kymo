@@ -1,7 +1,7 @@
 # KYMO CHAT (com.kymo.chat)
 ### Android Flutter APK & AAB Build Bundle
 - **Author / Generated for**: `ogkymo@gmail.com`
-- **GitHub Repository**: `anthonyjonny9/Kymo`
+- **GitHub Repository**: `anthonyjonny904-droid/Kymo`
 - **Package Name**: `com.kymo.chat`
 - **Version**: `1.0.0+1`
 
