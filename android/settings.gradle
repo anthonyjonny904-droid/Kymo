@@ -1,11 +1,37 @@
-include ':app'
+pluginManagement {
+    def flutterSdkPath = {
+        def properties = new Properties()
+        def localPropertiesFile = file("local.properties")
+        if (localPropertiesFile.exists()) {
+            localPropertiesFile.withInputStream { properties.load(it) }
+            def path = properties.getProperty("flutter.sdk")
+            if (path != null) return path
+        }
+        return System.getenv("FLUTTER_ROOT") ?: System.getenv("FLUTTER_HOME")
+    }()
 
-def localPropertiesFile = new File(rootProject.projectDir, "local.properties")
-def properties = new Properties()
+    includeBuild("$flutterSdkPath/packages/flutter_tools/gradle")
 
-assert localPropertiesFile.exists()
-localPropertiesFile.withReader("UTF-8") { reader -> properties.load(reader) }
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
 
-def flutterSdkPath = properties.getProperty("flutter.sdk")
-assert flutterSdkPath != null, "flutter.sdk not set in local.properties"
-apply from: "$flutterSdkPath/packages/flutter_tools/gradle/app_plugin_loader.gradle"
+    resolutionStrategy {
+        eachPlugin {
+            if (requested.id.id == "kotlin-android") {
+                useModule("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.24")
+            }
+        }
+    }
+}
+
+plugins {
+    id "dev.flutter.flutter-plugin-loader" version "1.0.0"
+    id "com.android.application" version "8.3.2" apply false
+    id "org.jetbrains.kotlin.android" version "1.9.24" apply false
+    id "com.google.gms.google-services" version "4.4.2" apply false
+}
+
+include ":app"

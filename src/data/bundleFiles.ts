@@ -1042,6 +1042,77 @@ dependencies {
 `,
   },
   {
+    name: 'settings.gradle',
+    path: 'android/settings.gradle',
+    language: 'groovy',
+    category: 'android',
+    description: 'Modern Declarative Gradle pluginManagement and plugins DSL configuration',
+    content: `pluginManagement {
+    def flutterSdkPath = {
+        def properties = new Properties()
+        def localPropertiesFile = file("local.properties")
+        if (localPropertiesFile.exists()) {
+            localPropertiesFile.withInputStream { properties.load(it) }
+            def path = properties.getProperty("flutter.sdk")
+            if (path != null) return path
+        }
+        return System.getenv("FLUTTER_ROOT") ?: System.getenv("FLUTTER_HOME")
+    }()
+
+    includeBuild("$flutterSdkPath/packages/flutter_tools/gradle")
+
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+
+    resolutionStrategy {
+        eachPlugin {
+            if (requested.id.id == "kotlin-android") {
+                useModule("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.24")
+            }
+        }
+    }
+}
+
+plugins {
+    id "dev.flutter.flutter-plugin-loader" version "1.0.0"
+    id "com.android.application" version "8.3.2" apply false
+    id "org.jetbrains.kotlin.android" version "1.9.24" apply false
+    id "com.google.gms.google-services" version "4.4.2" apply false
+}
+
+include ":app"
+`,
+  },
+  {
+    name: 'root-build.gradle',
+    path: 'android/build.gradle',
+    language: 'groovy',
+    category: 'android',
+    description: 'Root Android build.gradle using clean declarative project structure without legacy apply scripts',
+    content: `allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+rootProject.buildDir = "../build"
+subprojects {
+    project.buildDir = "\${rootProject.buildDir}/\${project.name}"
+}
+subprojects {
+    project.evaluationDependsOn(":app")
+}
+
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
+}
+`,
+  },
+  {
     name: 'AndroidManifest.xml',
     path: 'android/app/src/main/AndroidManifest.xml',
     language: 'xml',
