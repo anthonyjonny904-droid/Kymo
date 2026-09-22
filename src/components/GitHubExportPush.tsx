@@ -83,6 +83,7 @@ export const GitHubExportPush: React.FC = () => {
   const [pushStatus, setPushStatus] = useState<{
     success?: boolean;
     message?: string;
+    error?: string;
     output?: string;
   } | null>(null);
   const [copiedWorkflow, setCopiedWorkflow] = useState<boolean>(false);
