@@ -1028,6 +1028,43 @@ dependencies {
 `,
   },
   {
+    name: 'google-services.json',
+    path: 'android/app/google-services.json',
+    language: 'json',
+    category: 'android',
+    description: 'Firebase Google Services configuration for Android package com.kymo.chat',
+    content: `{
+  "project_info": {
+    "project_number": "918259769624",
+    "project_id": "kymo-chat-app",
+    "storage_bucket": "kymo-chat-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:918259769624:android:08b63e120fbd4c2d3a589e",
+        "android_client_info": {
+          "package_name": "com.kymo.chat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDummyKeyForKymoChatBuildOnly918259"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
+`,
+  },
+  {
     name: 'gradle.properties',
     path: 'android/gradle.properties',
     language: 'properties',
