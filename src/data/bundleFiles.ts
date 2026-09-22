@@ -13,8 +13,8 @@ export const KYMO_BUNDLE_FILES: SourceFile[] = [
     path: '.github/workflows/build-aab.yml',
     language: 'yaml',
     category: 'config',
-    description: 'GitHub Actions Automated Workflow to build release Android App Bundle (.aab)',
-    content: `name: Build Android App Bundle (AAB)
+    description: 'GitHub Actions Automated Workflow to build Debug APK (no signing, no secrets)',
+    content: `name: Build Debug APK
 
 on:
   push:
@@ -24,15 +24,13 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-aab:
-    name: Build Release AAB (com.kymo.chat)
+  build-debug-apk:
+    name: Build Debug APK (com.kymo.chat)
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Set up Java Development Kit (JDK 17)
         uses: actions/setup-java@v4
@@ -48,24 +46,17 @@ jobs:
           channel: 'stable'
           cache: true
 
-      - name: Verify Flutter Installation
-        run: flutter doctor -v
-
-      - name: Install Flutter Dependencies
+      - name: Install Dependencies
         run: flutter pub get
 
-      - name: Build Android App Bundle (AAB)
-        run: flutter build appbundle --release --no-tree-shake-icons
+      - name: Build Debug APK
+        run: flutter build apk --debug
 
-      - name: Verify AAB output
-        run: |
-          ls -lh build/app/outputs/bundle/release/app-release.aab
-
-      - name: Upload Release AAB Artifact
+      - name: Upload Debug APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: kymo-chat-release-aab
-          path: build/app/outputs/bundle/release/app-release.aab
+          name: kymo-chat-debug-apk
+          path: build/app/outputs/flutter-apk/app-debug.apk
           retention-days: 30
 `,
   },

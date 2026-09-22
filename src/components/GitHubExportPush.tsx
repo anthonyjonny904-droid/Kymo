@@ -21,7 +21,7 @@ import JSZip from 'jszip';
 import confetti from 'canvas-confetti';
 import { KYMO_BUNDLE_FILES } from '../data/bundleFiles';
 
-const AAB_WORKFLOW_YML = `name: Build Android App Bundle (AAB)
+const AAB_WORKFLOW_YML = `name: Build Debug APK
 
 on:
   push:
@@ -31,15 +31,13 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-aab:
-    name: Build Release AAB (com.kymo.chat)
+  build-debug-apk:
+    name: Build Debug APK (com.kymo.chat)
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Set up Java Development Kit (JDK 17)
         uses: actions/setup-java@v4
@@ -55,24 +53,17 @@ jobs:
           channel: 'stable'
           cache: true
 
-      - name: Verify Flutter Installation
-        run: flutter doctor -v
-
-      - name: Install Flutter Dependencies
+      - name: Install Dependencies
         run: flutter pub get
 
-      - name: Build Android App Bundle (AAB)
-        run: flutter build appbundle --release --no-tree-shake-icons
+      - name: Build Debug APK
+        run: flutter build apk --debug
 
-      - name: Verify AAB output
-        run: |
-          ls -lh build/app/outputs/bundle/release/app-release.aab
-
-      - name: Upload Release AAB Artifact
+      - name: Upload Debug APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: kymo-chat-release-aab
-          path: build/app/outputs/bundle/release/app-release.aab
+          name: kymo-chat-debug-apk
+          path: build/app/outputs/flutter-apk/app-debug.apk
           retention-days: 30
 `;
 
@@ -372,7 +363,7 @@ export const GitHubExportPush: React.FC = () => {
               <div className="flex items-center justify-between">
                 <span className="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
                   <Layers className="w-4 h-4 text-purple-400" />
-                  GitHub Actions AAB Workflow
+                  GitHub Actions Debug APK Workflow
                 </span>
                 <button
                   onClick={() => {
@@ -390,7 +381,7 @@ export const GitHubExportPush: React.FC = () => {
               <div className="text-[11px] text-slate-400 bg-[#0c121e] p-2.5 rounded-lg border border-slate-800">
                 File: <code className="text-purple-300 font-mono">.github/workflows/build-aab.yml</code>
                 <p className="text-[10px] text-slate-500 mt-0.5">
-                  Builds release AAB bundle automatically with Flutter 3.24 &amp; JDK 17 on push to main.
+                  Builds debug APK automatically with Flutter 3.24 &amp; JDK 17 (no signing, no secrets).
                 </p>
               </div>
 

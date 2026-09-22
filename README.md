@@ -7,9 +7,9 @@
 
 ---
 
-## 🚀 GitHub Actions Automated AAB & APK Builds
+## 🚀 GitHub Actions Automated Debug APK Build
 
-This repository is equipped with `.github/workflows/build-aab.yml` which automatically builds the release **Android App Bundle (.aab)** on every push to `main` and makes the signed artifact downloadable in the Actions tab.
+This repository is equipped with `.github/workflows/build-aab.yml` which automatically builds the **Debug APK (`app-debug.apk`)** on every push to `main` (no signing, no secrets, no AAB) and makes the APK artifact downloadable directly from the Actions tab.
 
 ---
 
