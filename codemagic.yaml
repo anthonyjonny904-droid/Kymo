@@ -7,11 +7,10 @@ workflows:
       flutter: stable
       java: 17
     scripts:
-      - name: Fix old GeneratedPluginRegistrant error
+      - name: Fix old GeneratedPluginRegistrant
         script: |
-          echo "Deleting old incompatible Java files..."
-          rm -rf android/app/src/main/java/io/flutter/plugins
-          rm -rf android/app/src/main/java/io/flutter
+          echo "Deleting old incompatible Java files"
+          rm -rf android/app/src/main/java/io/flutter/plugins/
           flutter clean
           flutter pub get
       - name: Build AAB and APK
